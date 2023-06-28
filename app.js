@@ -5,6 +5,7 @@ const ejs = require('ejs'); //追加
 const app = express();
 const port = 3000;
 
+app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
 const mysql = require('mysql2');
@@ -18,12 +19,10 @@ const con = mysql.createConnection({
 
 app.get('/', (req, res) => {
 	const sql = "select * from itemlist";
-	con.query(sql, function (err, result, fields) {  
+	con.query(sql, function (err, result, fields) {
 	if (err) throw err;
-	res.render('index',{itemlist : result}); 
+	res.render('index',{itemlist : result});
 	});
 });
 
-
-app.get('/', (req, res) => res.send('DB追加'));
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
