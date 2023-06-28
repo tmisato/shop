@@ -20,8 +20,28 @@ const con = mysql.createConnection({
 
 
 
+
+app.get('/list/:itemid', (req, res) => {
+  const itemid = req.params.itemid;
+  const sql = 'SELECT * FROM itemlist WHERE itemid = ?';
+  con.query(sql, [itemid], function(err, results) {
+    if (err) throw err;
+    const itemlist = results[0];
+    const sql2 = 'SELECT image_path FROM itemlist WHERE itemid = ?';
+    con.query(sql2, [itemid], function(err, imageResults) {
+      if (err) throw err;
+      const images = imageResults.map(image => image.image_path); // 画像パスのみを抽出
+      itemlist.images = images; // 画像パスをitemlistオブジェクトに追加
+
+      res.render('list', { itemlist: itemlist });
+    });
+  });
+});
+
+
+
 app.get('/', (req, res) => {
-  res.render('index'); 
+  res.render('list');
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
