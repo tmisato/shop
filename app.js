@@ -5,6 +5,7 @@ const ejs = require('ejs'); //追加
 const app = express();
 const port = 3000;
 
+app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
 const mysql = require('mysql2');
@@ -19,6 +20,8 @@ const con = mysql.createConnection({
 
 
 
-app.get('/', (req, res) => res.send('DB追加'));
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.get('/', (req, res) => {
+  res.render('index'); 
+});
 
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));
