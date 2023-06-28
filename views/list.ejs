@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>list</title>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <th>商品名</th>
+                <p></p>
+            </tr>
+            <tr>
+                <td><%= itemlist.item %></td>
+            </tr>
+            <tr>
+                <td>
+                    <% itemlist.images.forEach(image => { %>
+                        <img src="/images/<%= image %>"> <!-- 画像のパスを指定 -->
+                    <% }) %>
+                </td>
+            </tr>
+        </table>
+        <td><a href="/edit/<%= itemlist.id %>">更新</a></td>
+        <a href="/">トップに戻る</a>
+    </body>
+</html>
