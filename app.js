@@ -42,10 +42,20 @@ app.get('/list/:itemid', (req, res) => {
 app.get('/', (req, res) => {
 	const sql = "select * from itemlist";
 	con.query(sql, function (err, result, fields) {
-	if (err) throw err;
-	res.render('index',{itemlist : result});
+		if (err) throw err;
+		res.render('index', { itemlist: result });
 	});
 });
+
+app.get('/review/:id', (req, res) => {
+	const reviewId = req.params.id;
+	const sql = `select * from review where id = ${reviewId}`;
+	con.query(sql, function (err, result, fields) {
+		if (err) throw err;
+		res.render('review', { review: result });
+	});
+});
+
 
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

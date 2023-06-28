@@ -9,13 +9,13 @@
         <h2>商品カテゴリー</h2>
         <ul>
             <% itemlist.forEach(function (value) { %>
-                <a href="">
+                <a href="/review/<%= value.id %>">
                     <li>
-                    <div class="img"><img src="https://placekitten.com/200/200" alt="cat"></div>
-                    <p class="itemname"><%= value.item %></p>
-                    <div class="itemprice-container">
-                        <p class="itemprice"><%= value.price %></p><span>円</span>
-                    </div>
+                        <div class="img"><img src="https://placekitten.com/200/200" alt="cat"></div>
+                        <p class="itemname"><%= value.item %></p>
+                        <div class="itemprice-container">
+                            <p class="itemprice"><%= value.price %></p><span>円</span>
+                        </div>
                     </li>
                 </a>
             <% }); %>
