@@ -1,27 +1,24 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>User list</title>
-</head>
-<body>
-
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>商品名</th>
-            <th>金額</th>
-            <th>商品ID</th>
-        </tr>
-        <% itemlist.forEach(function (value) { %>
-        <tr>
-            <td><%= value.itemid %></td>
-            <td><%= value.itemname %></td>
-            <td><%= value.itemprice %></td>
-            <td><a href="/edit/<%= value.id %>">更新</a></td>
-            <td><a href="/delete/<%= value.id %>">削除</a></td>
-        </tr>
-        <% }); %>
-    </table>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>User list</title>
+        <link rel="stylesheet" href="/css/styles.css">
+    </head>
+    <body>
+        <h2>商品カテゴリー</h2>
+        <ul>
+            <% itemlist.forEach(function (value) { %>
+                <a href="">
+                    <li>
+                    <div class="img"><img src="https://placekitten.com/200/200" alt="cat"></div>
+                    <p class="itemname"><%= value.item %></p>
+                    <div class="itemprice-container">
+                        <p class="itemprice"><%= value.price %></p><span>円</span>
+                    </div>
+                    </li>
+                </a>
+            <% }); %>
+        </ul>
+    </body>
 </html>
