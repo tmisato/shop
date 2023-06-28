@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>User list</title>
+        <link rel="stylesheet" href="/css/review.css">
+    </head>
+    <body>
+        <ul class="personItem-container">
+            <% review.forEach(function (value) { %>
+                <li class="personItem">
+                    <p class="id"><%= value.id %></p>
+                    <p class="name"><%= value.username %>さん</p>
+                    <p class="age"><%= value.age %>歳</p>
+                    <div class="review">
+                        <div class="stars">
+                            <span>
+                                <% for (let i=5; i>= 1; i--) { %> <% if (i <=value.rating) { %>
+                                        <label for="review<%= i %>" style="color: #F8C601;">★</label>
+                                        <% } else { %>
+                                            <label for="review<%= i %>" style="color: #D2D2D2;">★</label>
+                                            <% } %>
+                                                <% } %>
+                            </span>
+                            <p class="rating"><%= value.rating %></p>
+                        </div>
+                    </div>
+                    <p class="reason"><%= value.reason %></p>
+                    <p class="merchandise"><%= value.merchandise %></p>
+                    <p class="created_at"><%= value.created_at %></p>
+                    <% }); %>
+        </ul>
+    </body>
