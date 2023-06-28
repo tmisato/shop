@@ -16,9 +16,14 @@ const con = mysql.createConnection({
 });
 
 
-
+app.get('/', (req, res) => {
+	const sql = "select * from itemlist";
+	con.query(sql, function (err, result, fields) {  
+	if (err) throw err;
+	res.render('index',{itemlist : result}); 
+	});
+});
 
 
 app.get('/', (req, res) => res.send('DB追加'));
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
-

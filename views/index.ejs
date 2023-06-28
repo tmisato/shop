@@ -12,14 +12,15 @@
             <th>商品名</th>
             <th>金額</th>
             <th>商品ID</th>
+            <th>画像</th>
         </tr>
         <% itemlist.forEach(function (value) { %>
         <tr>
+            <td><%= value.id %></td>
+            <td><%= value.item %></td>
+            <td><%= value.price %></td>
             <td><%= value.itemid %></td>
-            <td><%= value.itemname %></td>
-            <td><%= value.itemprice %></td>
-            <td><a href="/edit/<%= value.id %>">更新</a></td>
-            <td><a href="/delete/<%= value.id %>">削除</a></td>
+            <td><%= value.img %></td>
         </tr>
         <% }); %>
     </table>
