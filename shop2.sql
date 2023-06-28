@@ -16,6 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `itemlist`
+--
+
+DROP TABLE IF EXISTS `itemlist`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `itemlist` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `item` varchar(255) DEFAULT NULL,
+  `price` varchar(255) DEFAULT NULL,
+  `itemid` varchar(255) DEFAULT NULL,
+  `img` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `itemlist`
+--
+
+LOCK TABLES `itemlist` WRITE;
+/*!40000 ALTER TABLE `itemlist` DISABLE KEYS */;
+INSERT INTO `itemlist` VALUES (1,'shirt','5000','1','imgg'),(2,'tshirt','3000','2',NULL),(3,'bottom','15000','3',NULL),(4,'parker','10000','4',NULL),(5,'trainer','1000','5',NULL);
+/*!40000 ALTER TABLE `itemlist` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `review`
 --
 
@@ -53,4 +80,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-27 17:06:35
+-- Dump completed on 2023-06-28 10:13:30
