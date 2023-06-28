@@ -16,11 +16,6 @@ const con = mysql.createConnection({
   database: 'shop_db'
 });
 
-
-
-
-
-
 app.get('/list/:itemid', (req, res) => {
   const itemid = req.params.itemid;
   const sql = 'SELECT * FROM itemlist WHERE itemid = ?';
@@ -39,9 +34,13 @@ app.get('/list/:itemid', (req, res) => {
 });
 
 
-
 app.get('/', (req, res) => {
-  res.render('list');
+	const sql = "select * from itemlist";
+	con.query(sql, function (err, result, fields) {
+	if (err) throw err;
+	res.render('index',{itemlist : result});
+	});
 });
+
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

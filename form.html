@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>入力フォーム</title>
+        <style>
+            body {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+            .hissu {
+                background-color: red;
+                color: #fff;
+                margin-left: 10px;
+                padding: 3px;
+                border-radius: 5px;
+                font-size: 12px;
+            }
+            .itemcontainer {
+                display: flex;
+                align-items: baseline;
+            }
+            .itemcontainer p {
+                width: 20%;
+            }
+            .itemcontainer input {
+                width: 80%;
+            }
+            input[type="submit"] {
+                background-color: #F79428;
+                color: #fff;
+                border: none;
+                padding: 5px 20px;
+                font-size: 18px;
+            }
+            input[type="submit"]:hover {
+                opacity: 0.5;
+            }
+            .btn {
+                margin-top: 60px;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>入力フォーム</h2>
+        <form action="/" method="post">
+            <div class="itemcontainer">
+                <p>名前<span class="hissu">必須</span></p><input type="text" name="username">
+            </div>
+            <div class="itemcontainer">
+                <p>年齢<span class="hissu">必須</span></p><input type="text" name="age">
+            </div>
+            <div class="itemcontainer">
+                <p>評価<span class="hissu">必須</span></p>
+                <input type="text" name="rating">
+            </div>
+            <div class="itemcontainer">
+                <p>理由<span class="hissu">必須</span></p>
+                <textarea name="reason" rows="8" cols="60"></textarea>
+            </div>
+            <div class="itemcontainer">
+                <p>商品<span class="hissu">必須</span></p>
+                <input type="text" class="merchandise">
+            </div>
+            <p class="btn"><input type="submit" value="送信"></p>
+        </form>
+    </body>
+</html>
