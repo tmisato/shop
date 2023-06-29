@@ -1,24 +1,21 @@
 <!DOCTYPE html>
 <html lang="ja">
-    <head>
-        <meta charset="UTF-8">
-        <title>User list</title>
-        <link rel="stylesheet" href="/css/styles.css">
-    </head>
-    <body>
-        <h2>商品カテゴリー</h2>
-        <ul>
-            <% itemlist.forEach(function (value) { %>
-                <a href="">
-                    <li>
-                    <div class="img"><img src="https://placekitten.com/200/200" alt="cat"></div>
-                    <p class="itemname"><%= value.item %></p>
-                    <div class="itemprice-container">
-                        <p class="itemprice"><%= value.price %></p><span>円</span>
-                    </div>
-                    </li>
-                </a>
-            <% }); %>
-        </ul>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <title>User list</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <h2>商品カテゴリー</h2>
+    <ul>
+        <% itemlist.forEach(function (value) { %>
+            <li>
+                <p class="itemname"><a href="/list/<%= value.item %>"><img src="<%= value.images.split(",")[0] %>"></a></p>
+                <div class="itemprice-container">
+                    <p class="itemprice"><%= value.price %>円</p>
+                </div>
+            </li>
+        <% }); %>
+    </ul>
+</body>
 </html>
