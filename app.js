@@ -3,38 +3,34 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs"); //追加
 const app = express();
+const mysql = require("mysql2");
 const port = 3000;
 
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 
-const mysql = require("mysql2");
 const con = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "rootroot",
   database: "shop_db",
 });
-app.get("/list/:item", (req, res) => {
-  const item = req.params.item;
+
+
+app.get('/list/:item', (req, res) => {
   const sql = "SELECT * FROM itemlist WHERE item = ?";
-
-
-  con.query(sql, [item], function (err, results) {
+  con.query(sql, [req.params.item], function (err, result, fields) {
     if (err) throw err;
-    const itemlist = results;
-    const sql2 = "SELECT image FROM itemlist WHERE item = ?";
-    con.query(sql2, [item], function (err, imageResults) {
-      if (err) throw err;
-      const images = imageResults.map((image) => image.image);
-      itemlist.forEach((item) => {
-        item.images = images.filter((image) => image.startsWith(item.item));
-      });
-
-      res.render("list", { itemlist: itemlist });
+    const itemlist = result.map((item) => {
+      item.images = item.image.split(",");
+      return item;
+    });
+    res.render('list', {
+      itemlist: itemlist
     });
   });
 });
+
 
 
 app.get("/", (req, res) => {

@@ -6,16 +6,16 @@
 </head>
 <body>
     <table>
-        <% itemlist.forEach(function (item) { %>
+        <% itemlist.forEach(function(item) { %>
         <tr>
             <td><%= item.itemdeta %></td>
         </tr>
         <tr>
+            <% item.images.forEach(function(image) { %>
             <td>
-                <% item.images.forEach(function (image) { %>
-                    <img src="/images/<%= image %>">
-                <% }); %>
+                <img src="<%= image %>">
             </td>
+            <% }); %>
         </tr>
         <% }); %>
     </table>
