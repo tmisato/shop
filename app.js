@@ -16,8 +16,23 @@ const con = mysql.createConnection({
   database: "shop_db",
 });
 
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/list/:item', (req, res) => {
+app.get("/create", (req, res) =>
+  res.sendFile(path.join(__dirname, "form.html"))
+);
+app.post("/", (req, res) => {
+  const sql = "INSERT INTO review SET ?";
+
+  con.query(sql, req.body, function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+
+    res.redirect("/");
+  });
+});
+
+app.get("/list/:item", (req, res) => {
   const sql = "SELECT * FROM itemlist WHERE item = ?";
   con.query(sql, [req.params.item], function (err, result, fields) {
     if (err) throw err;
@@ -25,33 +40,34 @@ app.get('/list/:item', (req, res) => {
       item.images = item.image.split(",");
       return item;
     });
-    res.render('list', {
-      itemlist: itemlist
+
+    const reviewSql = "SELECT * FROM review";
+    con.query(reviewSql, function (err, reviewResult, fields) {
+      if (err) throw err;
+      res.render("list", {
+        itemlist: itemlist,
+        review: reviewResult,
+      });
     });
   });
 });
 
-
-
 app.get("/", (req, res) => {
-  const sql = "SELECT DISTINCT item, GROUP_CONCAT(image) AS images,  GROUP_CONCAT(price) AS price FROM itemlist GROUP BY item";
+  const sql =
+    "SELECT DISTINCT item, GROUP_CONCAT(image) AS images,  GROUP_CONCAT(price) AS price FROM itemlist GROUP BY item";
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
     res.render("index", { itemlist: result });
   });
 });
 
-
-app.get('/review/:id', (req, res) => {
-	const reviewId = req.params.id;
-	const sql = `select * from review where id = ${reviewId}`;
-	con.query(sql, function (err, result, fields) {
-		if (err) throw err;
-		res.render('review', { review: result });
-	});
+app.get("/review/:id", (req, res) => {
+  const reviewId = req.params.id;
+  const sql = `select * from review where id = ${reviewId}`;
+  con.query(sql, function (err, result, fields) {
+    if (err) throw err;
+    res.render("review", { review: result });
+  });
 });
-
-
-
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

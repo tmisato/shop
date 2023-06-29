@@ -15,3 +15,76 @@ padding: 5% 10%;
 img {
   width: 100%;
 }
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+p {
+  margin: 0;
+}
+#stage {
+  margin-bottom: 60px;
+}
+.function {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+#sort {
+  margin-right: 30px;
+}
+.personItem {
+  border-bottom: solid 1px #ccc;
+  padding: 30px;
+}
+.personItem:nth-of-type(1) {
+  border-top: solid 1px #ccc;
+}
+.personInfo {
+  display: flex;
+}
+.rating {
+  margin-left: 20px;
+  font-size: 18px;
+}
+.personItem-defo {
+  text-align: right;
+}
+
+.reason {
+  margin-top: 10px;
+}
+.age {
+  margin-left: 20px;
+}
+.stars {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.stars span {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+.stars input[type="radio"] {
+  display: none;
+}
+
+.stars label {
+  color: #d2d2d2;
+  font-size: 30px;
+  padding: 0 5px;
+}
+h3 {
+  padding-top: 40px;
+}
+.personItem-defo {
+  display: flex;
+  margin-bottom: 20px;
+}
+.created_at {
+  text-align: right;
+}
