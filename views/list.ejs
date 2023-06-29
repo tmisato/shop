@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>list</title>
-</head>
-<body>
-    <table>
-        <% itemlist.forEach(function(item) { %>
-        <tr>
-            <td><%= item.itemdeta %></td>
-        </tr>
-        <tr>
-            <% item.images.forEach(function(image) { %>
-            <td>
-                <img src="<%= image %>">
-            </td>
-            <% }); %>
-        </tr>
-        <% }); %>
-    </table>
-    <a href="/">トップに戻る</a>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>list</title>
+        <link rel="stylesheet" href="/css/list.css">
+    </head>
+    <body>
+        <ul class="list-container">
+            <% itemlist.forEach(function(item) { %>
+                <li class="list">
+                    <p class="listname">
+                    <div class="item-img">
+                       <%= item.itemdeta %></p>
+                        <% item.images.forEach(function(image) { %>
+                            <img src="<%= image %>">
+                            <% }); %>
+                    </div>
+                </li>
+                <% }); %>
+        </ul>
+        <a href="/">トップに戻る</a>
+    </body>
 </html>

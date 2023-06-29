@@ -1,0 +1,17 @@
+body {
+padding: 5% 10%;
+  margin: 0 auto;
+}
+.list-container {
+  padding-left: 0;
+  list-style-type: none;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.item-img {
+  width: 60%;
+}
+img {
+  width: 100%;
+}
