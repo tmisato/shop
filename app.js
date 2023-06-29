@@ -34,7 +34,7 @@ app.get('/list/:item', (req, res) => {
 
 
 app.get("/", (req, res) => {
-  const sql = "SELECT DISTINCT item, GROUP_CONCAT(image) AS images FROM itemlist GROUP BY item";
+  const sql = "SELECT DISTINCT item, GROUP_CONCAT(image) AS images,  GROUP_CONCAT(price) AS price FROM itemlist GROUP BY item";
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
     res.render("index", { itemlist: result });

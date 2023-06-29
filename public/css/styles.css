@@ -3,17 +3,20 @@ body {
   padding: 5% 10%;
   margin: 0 auto;
   color: #333;
+  background-color: #eedae5;
 }
+
 ul {
   list-style-type: none;
-  padding-left: 0;
+
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 li {
-  margin-right: 20px;
+  padding: 20px;
   margin-bottom: 40px;
+  background-color: #fff;
 }
 a {
   text-decoration: none;
@@ -22,14 +25,25 @@ a {
 a:hover {
   opacity: 0.5;
 }
-.itemname{
+h2 {
   text-align: center;
+  margin-bottom: 100px;
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+.item {
+  width: 25%;
+  text-align: center;
+  margin-bottom: 100px;
+
+}
+
+.itemname {
   font-weight: bold;
   font-size: 20px;
-  margin-bottom: 0;
-}
-.itemprice-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 20px;
 }
