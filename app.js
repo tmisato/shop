@@ -15,30 +15,33 @@ const con = mysql.createConnection({
   password: "rootroot",
   database: "shop_db",
 });
+app.get("/list/:item", (req, res) => {
+  const item = req.params.item;
+  const sql = "SELECT * FROM itemlist WHERE item = ?";
 
-app.get("/list/:itemid", (req, res) => {
-  const itemid = req.params.itemid;
-  const sql = "SELECT  * FROM itemlist WHERE itemid = ?";
-  con.query(sql, [itemid], function (err, results) {
+
+  con.query(sql, [item], function (err, results) {
     if (err) throw err;
-    const itemlist = results[0];
-    const sql2 = "SELECT image_path FROM itemlist WHERE itemid = ?";
-    con.query(sql2, [itemid], function (err, imageResults) {
+    const itemlist = results;
+    const sql2 = "SELECT image FROM itemlist WHERE item = ?";
+    con.query(sql2, [item], function (err, imageResults) {
       if (err) throw err;
-      const images = imageResults.map((image) => image.image_path); // 画像パスのみを抽出
-      itemlist.images = images; // 画像パスをitemlistオブジェクトに追加
+      const images = imageResults.map((image) => image.image);
+      itemlist.forEach((item) => {
+        item.images = images.filter((image) => image.startsWith(item.item));
+      });
 
       res.render("list", { itemlist: itemlist });
     });
   });
 });
 
-app.get('/', (req, res) => {
 
-  const sql = 'SELECT DISTINCT item FROM itemlist';
+app.get("/", (req, res) => {
+  const sql = "SELECT DISTINCT item, GROUP_CONCAT(image) AS images FROM itemlist GROUP BY item";
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
-    res.render('index', { itemlist: result });
+    res.render("index", { itemlist: result });
   });
 });
 
