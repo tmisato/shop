@@ -20,7 +20,9 @@
                 <% }); %>
         </ul>
         <h3>レビュー</h3>
-        <a href="/create">レビューを追加する</a>
+        <a href="/create?item=<%= itemlist[0].item %>">
+            <button>レビューを書く</button>
+        </a>
         <ul class="personItem-container">
             <% review.forEach(function (value) { %>
                 <li class="personItem">

@@ -20,20 +20,26 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 
+app.get("/create", (req, res) => {
+  const item = req.query.item; // クエリパラメータからアイテムのカラムのデータを取得 // フォームに渡すデータとして設定
+  res.render("form", { item: item });
+});
 
-app.get("/create", (req, res) =>
-  res.sendFile(path.join(__dirname, "form.html"))
-);
 app.post("/", (req, res) => {
-  const sql = "INSERT INTO review SET ?";
+  const { username, age, rating, reason, item } = req.body;
+  const created_at = new Date();
 
-  con.query(sql, req.body, function (err, result, fields) {
+  const sql = "INSERT INTO review (username, age, rating, reason, item, created_at) VALUES (?, ?, ?, ?, ?, ?)";
+  const values = [username, age, rating, reason, item, created_at];
+
+  con.query(sql, values, function (err, result, fields) {
     if (err) throw err;
     console.log(result);
 
     res.redirect("/");
   });
 });
+
 
 app.get("/list/:item", (req, res) => {
   const sql = "SELECT * FROM itemlist WHERE item = ?";
@@ -64,13 +70,8 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/review/:id", (req, res) => {
-  const reviewId = req.params.id;
-  const sql = `select * from review where id = ${reviewId}`;
-  con.query(sql, function (err, result, fields) {
-    if (err) throw err;
-    res.render("review", { review: result });
-  });
-});
+
+
+
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
