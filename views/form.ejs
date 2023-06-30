@@ -9,6 +9,7 @@
                 max-width: 600px;
                 margin: 0 auto;
             }
+
             .hissu {
                 background-color: red;
                 color: #fff;
@@ -17,16 +18,51 @@
                 border-radius: 5px;
                 font-size: 12px;
             }
+
+            .stars span {
+                display: flex;
+                flex-direction: row-reverse;
+                justify-content: flex-end;
+            }
+
+            .stars input[type='radio'] {
+                display: none;
+            }
+
+            .stars label {
+                color: #D2D2D2;
+                font-size: 30px;
+                padding: 0 5px;
+                cursor: pointer;
+            }
+
+            .stars label:hover,
+            .stars label:hover~label,
+            .stars input[type='radio']:checked~label {
+                color: #F8C601;
+            }
+
+            .itemcontainer p {
+                width: 20%;
+            }
+
+            .itemcontainer input {
+                width: 80%;
+            }
+
             .itemcontainer {
                 display: flex;
                 align-items: baseline;
             }
+
             .itemcontainer p {
                 width: 20%;
             }
+
             .itemcontainer input {
                 width: 80%;
             }
+
             input[type="submit"] {
                 background-color: #F79428;
                 color: #fff;
@@ -34,9 +70,11 @@
                 padding: 5px 20px;
                 font-size: 18px;
             }
+
             input[type="submit"]:hover {
                 opacity: 0.5;
             }
+
             .btn {
                 margin-top: 60px;
                 text-align: center;
@@ -45,7 +83,7 @@
     </head>
     <body>
         <h2>入力フォーム</h2>
-        <form action="/" method="post">
+        <form action="/" method="post"> <!-- フォームの送信先を変更 -->
             <div class="itemcontainer">
                 <p>名前<span class="hissu">必須</span></p><input type="text" name="username">
             </div>
@@ -54,16 +92,23 @@
             </div>
             <div class="itemcontainer">
                 <p>評価<span class="hissu">必須</span></p>
-                <input type="text" name="rating">
+                <div class="review">
+                    <div class="stars">
+                        <span>
+                            <input id="review01" type="radio" name="rating" value="1"><label for="review01">★</label>
+                            <input id="review02" type="radio" name="rating" value="2"><label for="review02">★</label>
+                            <input id="review03" type="radio" name="rating" value="3"><label for="review03">★</label>
+                            <input id="review04" type="radio" name="rating" value="4"><label for="review04">★</label>
+                            <input id="review05" type="radio" name="rating" value="5"><label for="review05">★</label>
+                        </span>
+                    </div>
+                </div>
             </div>
             <div class="itemcontainer">
                 <p>理由<span class="hissu">必須</span></p>
                 <textarea name="reason" rows="8" cols="60"></textarea>
             </div>
-            <div class="itemcontainer">
-                <p>商品<span class="hissu">必須</span></p>
-                <input type="text" class="merchandise">
-            </div>
+            <input type="hidden" name="item" value="<%= item %>">
             <p class="btn"><input type="submit" value="送信"></p>
         </form>
     </body>

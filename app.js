@@ -1,7 +1,7 @@
 const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
-const ejs = require("ejs"); //追加
+const ejs = require("ejs");
 const app = express();
 const mysql = require("mysql2");
 const port = 3000;
@@ -18,13 +18,21 @@ const con = mysql.createConnection({
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/create", (req, res) =>
-  res.sendFile(path.join(__dirname, "form.html"))
-);
-app.post("/", (req, res) => {
-  const sql = "INSERT INTO review SET ?";
 
-  con.query(sql, req.body, function (err, result, fields) {
+
+app.get("/create", (req, res) => {
+  const item = req.query.item; 
+  res.render("form", { item: item });
+});
+
+app.post("/", (req, res) => {
+  const { username, age, rating, reason, item } = req.body;
+  const created_at = new Date();
+
+  const sql = "INSERT INTO review (username, age, rating, reason, item, created_at) VALUES (?, ?, ?, ?, ?, ?)";
+  const values = [username, age, rating, reason, item, created_at];
+
+  con.query(sql, values, function (err, result, fields) {
     if (err) throw err;
     console.log(result);
 
@@ -41,8 +49,27 @@ app.get("/list/:item", (req, res) => {
       return item;
     });
 
-    const reviewSql = "SELECT * FROM review";
-    con.query(reviewSql, function (err, reviewResult, fields) {
+    const selectedValue = req.query.sort;
+    const selectedFilter = req.query.filter;
+    const reviewSql = "SELECT * FROM review WHERE item = ?";
+
+
+    let sqlWithFilter = reviewSql;
+    if (selectedFilter && selectedFilter !== "0") {
+      sqlWithFilter += " AND rating = '" + selectedFilter + "'";
+    }
+
+    let sqlWithSort = sqlWithFilter;
+    if (selectedValue === "2") {
+      sqlWithSort += " ORDER BY rating DESC";
+    }
+
+    if (selectedValue === "3") {
+      sqlWithSort += " ORDER BY rating ASC";
+    }
+    // 修正終了
+
+    con.query(sqlWithSort, [req.params.item], function (err, reviewResult, fields) {
       if (err) throw err;
       res.render("list", {
         itemlist: itemlist,
@@ -51,6 +78,11 @@ app.get("/list/:item", (req, res) => {
     });
   });
 });
+
+
+
+
+
 
 app.get("/", (req, res) => {
   const sql =
@@ -61,13 +93,8 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/review/:id", (req, res) => {
-  const reviewId = req.params.id;
-  const sql = `select * from review where id = ${reviewId}`;
-  con.query(sql, function (err, result, fields) {
-    if (err) throw err;
-    res.render("review", { review: result });
-  });
-});
+
+
+
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
