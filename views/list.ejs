@@ -19,8 +19,8 @@
                 </li>
                 <% }); %>
         </ul>
-<h3>レビュー</h3>
-<a href="/create">レビューを追加する</a>
+        <h3>レビュー</h3>
+        <a href="/create">レビューを追加する</a>
         <ul class="personItem-container">
             <% review.forEach(function (value) { %>
                 <li class="personItem">
@@ -43,11 +43,10 @@
                     </div>
                     <p class="reason"><%= value.reason %></p>
                     <p class="merchandise"><%= value.merchandise %></p>
-                    <p class="created_at"><%= value.created_at %></p>
+                    <% const createdDate = new Date(value.created_at); %>
+                    <p class="created_at"><%= createdDate.toLocaleString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) %></p>
                     <% }); %>
         </ul>
-
-        
         <a href="/">トップに戻る</a>
     </body>
 </html>
