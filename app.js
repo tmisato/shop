@@ -18,6 +18,9 @@ const con = mysql.createConnection({
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
+
+
 app.get("/create", (req, res) =>
   res.sendFile(path.join(__dirname, "form.html"))
 );
@@ -41,8 +44,8 @@ app.get("/list/:item", (req, res) => {
       return item;
     });
 
-    const reviewSql = "SELECT * FROM review";
-    con.query(reviewSql, function (err, reviewResult, fields) {
+    const reviewSql = "SELECT * FROM review WHERE item = ?";
+    con.query(reviewSql, [req.params.item], function (err, reviewResult, fields) {
       if (err) throw err;
       res.render("list", {
         itemlist: itemlist,
