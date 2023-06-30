@@ -1,7 +1,7 @@
 const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
-const ejs = require("ejs"); //追加
+const ejs = require("ejs");
 const app = express();
 const mysql = require("mysql2");
 const port = 3000;
@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.get("/create", (req, res) => {
-  const item = req.query.item; // クエリパラメータからアイテムのカラムのデータを取得 // フォームに渡すデータとして設定
+  const item = req.query.item; 
   res.render("form", { item: item });
 });
 
@@ -40,7 +40,6 @@ app.post("/", (req, res) => {
   });
 });
 
-
 app.get("/list/:item", (req, res) => {
   const sql = "SELECT * FROM itemlist WHERE item = ?";
   con.query(sql, [req.params.item], function (err, result, fields) {
@@ -50,8 +49,27 @@ app.get("/list/:item", (req, res) => {
       return item;
     });
 
+    const selectedValue = req.query.sort;
+    const selectedFilter = req.query.filter;
     const reviewSql = "SELECT * FROM review WHERE item = ?";
-    con.query(reviewSql, [req.params.item], function (err, reviewResult, fields) {
+
+
+    let sqlWithFilter = reviewSql;
+    if (selectedFilter && selectedFilter !== "0") {
+      sqlWithFilter += " AND rating = '" + selectedFilter + "'";
+    }
+
+    let sqlWithSort = sqlWithFilter;
+    if (selectedValue === "2") {
+      sqlWithSort += " ORDER BY rating DESC";
+    }
+
+    if (selectedValue === "3") {
+      sqlWithSort += " ORDER BY rating ASC";
+    }
+    // 修正終了
+
+    con.query(sqlWithSort, [req.params.item], function (err, reviewResult, fields) {
       if (err) throw err;
       res.render("list", {
         itemlist: itemlist,
@@ -60,6 +78,11 @@ app.get("/list/:item", (req, res) => {
     });
   });
 });
+
+
+
+
+
 
 app.get("/", (req, res) => {
   const sql =
