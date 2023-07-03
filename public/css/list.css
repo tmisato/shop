@@ -3,7 +3,7 @@ padding: 5% 10%;
   margin: 0 auto;
 }
 .list-container {
-  padding-left: 0;
+  padding: 50px;
   list-style-type: none;
   display: flex;
   justify-content: space-around;
@@ -87,4 +87,34 @@ h3 {
 }
 .created_at {
   text-align: right;
+}
+
+
+.detacretebox {
+  display: flex;
+  padding: inherit;
+  justify-content: end;
+}
+
+.edit, .delete{
+border : solid 1px #444;
+padding: 5px;
+border-radius: 3px;
+
+}
+
+a:hover{
+  color: rgb(214, 225, 243);
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+.sortfilter-container{
+  padding: 50px;
+}
+
+.itemdeta{
+  font-size: 20px;
 }

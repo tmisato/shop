@@ -21,8 +21,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.get("/create", (req, res) => {
-  const item = req.query.item; 
+  const item = req.query.item;
   res.render("form", { item: item });
+  
 });
 
 app.post("/", (req, res) => {
@@ -67,7 +68,6 @@ app.get("/list/:item", (req, res) => {
     if (selectedValue === "3") {
       sqlWithSort += " ORDER BY rating ASC";
     }
-    // 修正終了
 
     con.query(sqlWithSort, [req.params.item], function (err, reviewResult, fields) {
       if (err) throw err;
@@ -80,7 +80,39 @@ app.get("/list/:item", (req, res) => {
 });
 
 
+app.get("/edit/:id", (req, res) => {
+  const item = req.params.id;
 
+  const sql = "SELECT * FROM review WHERE id = ?";
+  con.query(sql, [req.params.id], function (err, result, fields) {
+    if (err) throw err;
+    res.render("edit", {
+      review: result,
+      item: result[0].item,
+      rating: result[0].rating,
+      reason: result[0].reason
+    });
+  });
+});
+
+app.post("/update/:id", (req, res) => {
+  const sql = "UPDATE review SET ? WHERE id = " + req.params.id;
+  con.query(sql, req.body, function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+    res.redirect("/list/" + req.body.item);
+  });
+});
+
+
+app.get("/delete/:id", (req, res) => {
+  const sql = "DELETE FROM review WHERE id = ?"
+  con.query(sql, [req.params.id], function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+    res.redirect("/");
+  });
+});
 
 
 

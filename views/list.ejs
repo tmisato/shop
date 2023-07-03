@@ -6,24 +6,24 @@
         <link rel="stylesheet" href="/css/list.css">
     </head>
     <body>
+        <h3><%= itemlist[0].item%></h3>
         <ul class="list-container">
             <% itemlist.forEach(function(item) { %>
                 <li class="list">
-                    <p class="listname">
-                    <div class="item-img">
-                       <%= item.itemdeta %></p>
-                    <% item.images.forEach(function(image) { %>
-                        <img src="<%= image %>">
-                        <% }); %>
+                    <p class="listname"></p>
+                    <%= item.itemdeta %>
+                        <% item.images.forEach(function(image) { %>
+                            <div class="item-img">
+                                <img src="<%= image %>">
                             </div>
+                            <% }); %>
                 </li>
                 <% }); %>
         </ul>
-        <h3>レビュー</h3>
-        <a href="/create?item=<%= itemlist[0].item %>">
-            <button>レビューを書く</button>
-        </a>
-        <div>
+        <div class="itemdeta">
+            <p class="itemdeta"><%= itemlist[0].price%>円</p>
+        </div>
+        <div class="sortfilter-container">
             <label for="sort">並び替え</label>
             <select id="sort" class="sort-container">
                 <option value="1">標準</option>
@@ -39,7 +39,10 @@
                 <option value="2">2</option>
                 <option value="1">1</option>
             </select>
+            
         </div>
+        <a href="/create?item=<%= itemlist[0].item %>">
+            <button>レビューを書く</button>        </a>
         <ul class="personItem-container">
             <% review.forEach(function (value) { %>
                 <li class="personItem">
@@ -49,6 +52,7 @@
                     </div>
                     <div class="review">
                         <div class="stars">
+                            
                             <span>
                                 <% for (let i=5; i>= 1; i--) { %> <% if (i <=value.rating) { %>
                                         <label for="review<%= i %>" style="color: #F8C601;">★</label>
@@ -64,52 +68,13 @@
                     <p class="merchandise"><%= value.merchandise %></p>
                     <% const createdDate=new Date(value.created_at); %>
                         <p class="created_at"><%= createdDate.toLocaleString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) %></p>
+                        <div class="detacretebox">
+                            <div class="edit"><a href="/edit/<%= value.id %>">更新</a></div>
+                            <div class="delete"><a href="/delete/<%= value.id %>">削除</a></div>
+                        </div>
                         <% }); %>
         </ul>
         <a href="/">トップに戻る</a>
-        <script type="text/javascript">
-            //ソート
-            let sortSelect = document.getElementById("sort");
-            let urlParams = new URLSearchParams(window.location.search);
-            let selectedValue = urlParams.get("sort");
-
-            if (selectedValue) {
-                sortSelect.value = selectedValue;
-            }
-
-            sortSelect.addEventListener("change", function () {
-                let selectedValue = sortSelect.value;
-                if (selectedValue === "1") {
-                    let url = new URL(window.location.href);
-                    url.searchParams.delete("sort");
-                    location.href = url.href;
-                } else {
-                    let url = new URL(window.location.href);
-                    url.searchParams.set("sort", selectedValue);
-                    location.href = url.href;
-                }
-            });
-            //絞り込み
-            let filterSelect = document.getElementById("filter");
-            let urlParams2 = new URLSearchParams(window.location.search);
-            let selectedFilter = urlParams2.get("filter");
-
-            if (selectedFilter) {
-                filterSelect.value = selectedFilter;
-            }
-
-            filterSelect.addEventListener("change", function () {
-                let selectedValue2 = filterSelect.value;
-                if (selectedValue2 === "0") {
-                    let url2 = new URL(window.location.href);
-                    url2.searchParams.delete("filter");
-                    location.href = url2.href;
-                } else {
-                    let url2 = new URL(window.location.href);
-                    url2.searchParams.set("filter", selectedValue2);
-                    location.href = url2.href;
-                }
-            });
-        </script>
+ 
     </body>
 </html>

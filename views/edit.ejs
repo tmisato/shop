@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>入力フォーム</title>
+    <style>
+        body {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .hissu {
+            background-color: red;
+            color: #fff;
+            margin-left: 10px;
+            padding: 3px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+
+        .stars {
+            display: flex;
+            flex-direction: row-reverse;
+        }
+
+        .stars input[type='radio'] {
+            display: none;
+        }
+
+        .stars label {
+            color: #D2D2D2;
+            font-size: 30px;
+            padding: 0 5px;
+            cursor: pointer;
+        }
+
+        .stars label:hover,
+        .stars label:hover~label,
+        .stars input[type='radio']:checked~label {
+            color: #F8C601;
+        }
+
+        .itemcontainer {
+            display: flex;
+            align-items: baseline;
+        }
+
+        .itemcontainer p {
+            width: 20%;
+        }
+
+        .itemcontainer input {
+            width: 80%;
+        }
+
+        input[type="submit"] {
+            background-color: #F79428;
+            color: #fff;
+            border: none;
+            padding: 5px 20px;
+            font-size: 18px;
+        }
+
+        input[type="submit"]:hover {
+            opacity: 0.5;
+        }
+
+        .btn {
+            margin-top: 60px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <h2>入力フォーム</h2>
+    <form action="/update/<%= review[0].id %>" method="post"> <!-- フォームの送信先を変更 -->
+        <div class="itemcontainer">
+            <p>名前<span class="hissu">必須</span></p>
+            <input type="text" name="username" value="<%= review[0].username %>">
+        </div>
+        <div class="itemcontainer">
+            <p>年齢<span class="hissu">必須</span></p>
+            <input type="text" name="age" value="<%= review[0].age %>">
+        </div>
+        <div class="itemcontainer">
+            <p>評価<span class="hissu">必須</span></p>
+            <div class="review">
+                <div class="stars">
+                    <% for (let i = 5; i >= 1; i--) { %> <!-- 評価の星を反対から表示 -->
+                        <input id="review<%= i %>" type="radio" name="rating" value="<%= i %>" <% if (review[0].rating == i) { %>checked<% } %>>
+                        <label for="review<%= i %>">★</label>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+        <div class="itemcontainer">
+            <p>理由<span class="hissu">必須</span></p>
+            <textarea name="reason" rows="8" cols="60"><%= review[0].reason %></textarea>
+        </div>
+        <input type="hidden" name="item" value="<%= item %>">
+        <p class="btn"><input type="submit" value="送信"></p>
+    </form>
+</body>
+</html>
