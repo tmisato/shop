@@ -75,7 +75,7 @@
 </head>
 <body>
     <h2>入力フォーム</h2>
-    <form action="/update/<%= review[0].id %>" method="post"> <!-- フォームの送信先を変更 -->
+    <form action="/update/<%= review[0].id %>" method="post"> 
         <div class="itemcontainer">
             <p>名前<span class="hissu">必須</span></p>
             <input type="text" name="username" value="<%= review[0].username %>">
@@ -88,7 +88,7 @@
             <p>評価<span class="hissu">必須</span></p>
             <div class="review">
                 <div class="stars">
-                    <% for (let i = 5; i >= 1; i--) { %> <!-- 評価の星を反対から表示 -->
+                    <% for (let i = 5; i >= 1; i--) { %> 
                         <input id="review<%= i %>" type="radio" name="rating" value="<%= i %>" <% if (review[0].rating == i) { %>checked<% } %>>
                         <label for="review<%= i %>">★</label>
                     <% } %>
