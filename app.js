@@ -37,7 +37,7 @@ app.post("/", (req, res) => {
     if (err) throw err;
     console.log(result);
 
-    res.redirect("/");
+    res.redirect("/list/" + item);
   });
 });
 
